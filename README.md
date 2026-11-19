@@ -51,7 +51,7 @@ claude mcp add zrk-scrapers -e APIFY_TOKEN=your_token -- npx -y zrk-scrapers-mcp
 
 ## Pricing and limits
 
-Runs use your Apify account. Each actor is pay-per-result (for example $0.60 per 1,000 Telegram posts or $2 per 1,000 jobs); see each actor page for prices. Every tool accepts `maxChargeUsd` as a hard spending cap per run and `maxItems` to limit the rows returned. Any other actor input field can be passed through `extraInput`.
+Runs use your Apify account. Each actor is pay-per-result (for example $0.60 per 1,000 Telegram posts or $2 per 1,000 jobs); see each actor page for prices. Every run is capped at $1 by default (`maxChargeUsd` per call, or set `ZRK_MAX_CHARGE_USD` in env to change the default), and tools accept `maxItems` to limit the rows returned. Any other actor input field can be passed through `extraInput`.
 
 Long runs return a `runId` after `waitSecs` (default 120); call `get_run_results` to collect them.
 

@@ -7,6 +7,7 @@ import catalog from "./catalog.json" with { type: "json" };
 const API = "https://api.apify.com/v2";
 const VERSION = "1.0.0";
 const MAX_CHARS = 60_000;
+const DEFAULT_CAP_USD = Number(process.env.ZRK_MAX_CHARGE_USD ?? 1);
 
 type Param = {
   name: string;
@@ -116,7 +117,7 @@ for (const a of catalog.actors) {
     .number()
     .positive()
     .optional()
-    .describe("Optional hard spending cap for this run in USD (Apify stops the run when reached).");
+    .describe(`Hard spending cap for this run in USD (default ${DEFAULT_CAP_USD}). Apify stops charging when it is reached.`);
   shape.waitSecs = z
     .number()
     .int()
@@ -135,16 +136,17 @@ for (const a of catalog.actors) {
       title: a.title,
       description: `${a.description} Runs the Apify actor ${a.actor} on your Apify account.`,
       inputSchema: shape,
-      annotations: { readOnlyHint: true, openWorldHint: true },
+      // Not read-only: every run spends Apify credit, so clients should ask before calling.
+      annotations: { readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
     },
     async (args: Record<string, any>) => {
-      const { maxItems = 50, maxChargeUsd, waitSecs = 120, extraInput = {}, ...fields } = args;
+      const { maxItems = 50, maxChargeUsd = DEFAULT_CAP_USD, waitSecs = 120, extraInput = {}, ...fields } = args;
       const input: Record<string, unknown> = { ...extraInput, ...fields };
       if ("limitParam" in a && a.limitParam && input[a.limitParam] === undefined) {
         input[a.limitParam] = maxItems;
       }
       const q = new URLSearchParams({ waitForFinish: String(Math.min(waitSecs, 60)) });
-      if (maxChargeUsd) q.set("maxTotalChargeUsd", String(maxChargeUsd));
+      q.set("maxTotalChargeUsd", String(maxChargeUsd));
       const actorPath = a.actor.replace("/", "~");
       let run = (await apify(`/acts/${actorPath}/runs?${q}`, { method: "POST", body: JSON.stringify(input) })).data;
 
