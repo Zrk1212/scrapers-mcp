@@ -1,0 +1,107 @@
+{
+  "manifest_version": "0.3",
+  "name": "zrk-scrapers-mcp",
+  "display_name": "ZRK Scrapers",
+  "version": "1.0.0",
+  "description": "9 web scrapers for AI agents: ATS and Workday jobs, PageSpeed audits, UK new companies, TikTok transcripts, Luma organizers, Google Hotels prices, Google Ads Transparency, Telegram channels.",
+  "author": {
+    "name": "Zrk1212",
+    "url": "https://github.com/Zrk1212"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Zrk1212/scrapers-mcp"
+  },
+  "homepage": "https://github.com/Zrk1212/scrapers-mcp",
+  "license": "MIT",
+  "keywords": [
+    "scraper",
+    "jobs",
+    "tiktok",
+    "telegram",
+    "pagespeed",
+    "apify"
+  ],
+  "server": {
+    "type": "node",
+    "entry_point": "dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/dist/index.js"
+      ],
+      "env": {
+        "APIFY_TOKEN": "${user_config.apify_token}",
+        "ZRK_MAX_CHARGE_USD": "${user_config.max_charge_usd}"
+      }
+    }
+  },
+  "user_config": {
+    "apify_token": {
+      "type": "string",
+      "title": "Apify API token",
+      "description": "From console.apify.com/settings/integrations",
+      "sensitive": true,
+      "required": true
+    },
+    "max_charge_usd": {
+      "type": "string",
+      "title": "Default spend cap per run (USD)",
+      "description": "Runs stop charging at this amount",
+      "default": "1",
+      "required": false
+    }
+  },
+  "tools": [
+    {
+      "name": "scrape_ats_jobs",
+      "description": "ATS Jobs Scraper (Greenhouse, Lever, Ashby +6)"
+    },
+    {
+      "name": "scrape_workday_jobs",
+      "description": "Workday Jobs Scraper"
+    },
+    {
+      "name": "audit_pagespeed",
+      "description": "Bulk PageSpeed & Core Web Vitals Checker"
+    },
+    {
+      "name": "find_uk_new_companies",
+      "description": "UK New Company Leads (Companies House)"
+    },
+    {
+      "name": "get_tiktok_transcripts",
+      "description": "TikTok Transcript Scraper"
+    },
+    {
+      "name": "find_luma_organizers",
+      "description": "Luma Event Organizer Leads"
+    },
+    {
+      "name": "get_google_hotel_prices",
+      "description": "Google Hotels Prices Scraper"
+    },
+    {
+      "name": "scrape_google_ads_transparency",
+      "description": "Google Ads Transparency Scraper"
+    },
+    {
+      "name": "scrape_telegram_channel",
+      "description": "Telegram Channel Scraper"
+    },
+    {
+      "name": "get_run_results",
+      "description": "Get results of a long or large run"
+    }
+  ],
+  "compatibility": {
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  }
+}
