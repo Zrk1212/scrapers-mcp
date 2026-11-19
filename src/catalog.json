@@ -1,0 +1,131 @@
+{
+  "actors": [
+    {
+      "tool": "scrape_ats_jobs",
+      "actor": "zrk1212/ats-jobs-monitor",
+      "title": "ATS Jobs Scraper (Greenhouse, Lever, Ashby +6)",
+      "description": "Scrape open jobs from company careers pages on Greenhouse, Lever, Ashby, SmartRecruiters, Workable, Recruitee, Personio, Teamtailor and Rippling. Pass careers URLs or plain company names; the ATS is auto-detected. Returns title, location, remote flag, department, parsed salary, posted date and description. Priced per job returned.",
+      "params": [
+        { "name": "companies", "type": "string[]", "required": true, "description": "Careers page URLs (e.g. https://jobs.ashbyhq.com/linear) or company names (e.g. 'Discord').", "example": ["https://jobs.ashbyhq.com/linear", "Discord"] },
+        { "name": "titleKeywords", "type": "string[]", "description": "Keep jobs whose title contains any of these words." },
+        { "name": "locationKeywords", "type": "string[]", "description": "Keep jobs whose location contains any of these words." },
+        { "name": "remoteOnly", "type": "boolean", "description": "Only remote jobs." },
+        { "name": "postedWithinDays", "type": "integer", "description": "Only jobs posted in the last N days (0 = any)." },
+        { "name": "includeDescription", "type": "boolean", "description": "Include the plain-text job description (default true)." },
+        { "name": "maxJobsPerCompany", "type": "integer", "description": "Cap per company (default 30)." }
+      ],
+      "limitParam": "maxJobs"
+    },
+    {
+      "tool": "scrape_workday_jobs",
+      "actor": "zrk1212/workday-jobs-scraper",
+      "title": "Workday Jobs Scraper",
+      "description": "Scrape every job from any Workday career site (myworkdayjobs.com), including past Workday's 2,000-result cap. Pass Workday site URLs or company names. Returns title, location, posted date, parsed salary and full description. Priced per job returned.",
+      "params": [
+        { "name": "siteUrls", "type": "string[]", "description": "Workday career site URLs, e.g. https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite", "example": ["https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite"] },
+        { "name": "companies", "type": "string[]", "description": "Company names to look up on Workday (use instead of or with siteUrls)." },
+        { "name": "searchText", "type": "string", "description": "Workday search text, e.g. 'software engineer'." },
+        { "name": "locationKeywords", "type": "string[]", "description": "Keep jobs whose location contains any of these words." },
+        { "name": "remoteOnly", "type": "boolean", "description": "Only remote jobs." },
+        { "name": "postedWithinDays", "type": "integer", "description": "Only jobs posted in the last N days (0 = any)." },
+        { "name": "includeDetails", "type": "boolean", "description": "Fetch full description and salary (default true)." }
+      ],
+      "limitParam": "maxResults"
+    },
+    {
+      "tool": "audit_pagespeed",
+      "actor": "zrk1212/pagespeed-bulk-auditor",
+      "title": "Bulk PageSpeed & Core Web Vitals Checker",
+      "description": "Run Google PageSpeed Insights / Lighthouse on many pages or whole sites. Returns performance, SEO, accessibility and best-practices scores, real-user Core Web Vitals (LCP, INP, CLS) with pass/fail, and the top fixes per page. Priced per audit.",
+      "params": [
+        { "name": "urls", "type": "string[]", "description": "Exact page URLs to audit.", "example": ["https://web.dev/"] },
+        { "name": "startDomains", "type": "string[]", "description": "Whole websites to audit; pages are discovered from the sitemap." },
+        { "name": "maxPagesPerSite", "type": "integer", "description": "Pages per site when using startDomains (default 25)." },
+        { "name": "strategy", "type": "enum", "values": ["mobile", "desktop", "both"], "description": "Device to emulate (default mobile)." },
+        { "name": "fieldDataOnly", "type": "boolean", "description": "Only real-user Core Web Vitals, no Lighthouse run (fast and cheap)." }
+      ],
+      "limitParam": "maxAudits"
+    },
+    {
+      "tool": "find_uk_new_companies",
+      "actor": "zrk1212/uk-new-company-leads",
+      "title": "UK New Company Leads (Companies House)",
+      "description": "Find newly incorporated UK companies from the official Companies House register, filtered by date, SIC code or industry keyword, location and company type. Returns company number, name, address, SIC descriptions and directors. Priced per company.",
+      "params": [
+        { "name": "daysBack", "type": "integer", "description": "Companies incorporated in the last N days (default 7)." },
+        { "name": "sicCodes", "type": "string[]", "description": "SIC codes, e.g. ['62012'] for software development.", "example": ["62012"] },
+        { "name": "sicKeywords", "type": "string[]", "description": "Industry keywords matched against SIC descriptions, e.g. ['restaurant']." },
+        { "name": "location", "type": "string", "description": "Town, city or county, e.g. 'Manchester'." },
+        { "name": "includeOfficers", "type": "boolean", "description": "Include directors and officers (default true)." }
+      ],
+      "limitParam": "maxResults"
+    },
+    {
+      "tool": "get_tiktok_transcripts",
+      "actor": "zrk1212/tiktok-transcript-scraper",
+      "title": "TikTok Transcript Scraper",
+      "description": "Get transcripts of TikTok videos from video URLs or profile handles. Uses TikTok's own captions first and AI speech-to-text only when captions are missing. Returns transcript text, timestamped segments, language, views and likes. Priced per transcript.",
+      "params": [
+        { "name": "videoUrls", "type": "string[]", "description": "TikTok video URLs.", "example": ["https://www.tiktok.com/@nasa/video/7707774305056083213"] },
+        { "name": "profiles", "type": "string[]", "description": "TikTok handles (without @) to pull recent videos from." },
+        { "name": "maxVideosPerProfile", "type": "integer", "description": "Recent videos per profile (default 4)." },
+        { "name": "aiFallback", "type": "boolean", "description": "Use AI transcription when captions are missing (default true, billed per minute)." },
+        { "name": "preferredLanguage", "type": "string", "description": "Preferred caption language code, e.g. 'en'." }
+      ]
+    },
+    {
+      "tool": "find_luma_organizers",
+      "actor": "zrk1212/luma-organizer-leads",
+      "title": "Luma Event Organizer Leads",
+      "description": "Scrape Luma (lu.ma) events by city and category and get one lead row per organizer (website, socials, followers, events hosted, average guests, paid-ticket share), or raw event rows in 'events' mode. Priced per organizer or event.",
+      "params": [
+        { "name": "mode", "type": "enum", "values": ["organizers", "events"], "description": "One row per organizer (default) or per event." },
+        { "name": "cities", "type": "string[]", "description": "Luma city slugs, e.g. ['sf', 'nyc', 'london'].", "example": ["sf"] },
+        { "name": "categories", "type": "string[]", "description": "Luma categories, e.g. ['tech', 'ai', 'crypto'].", "example": ["tech"] },
+        { "name": "calendars", "type": "string[]", "description": "Specific Luma calendar URLs or slugs (optional)." },
+        { "name": "onlyPaidEvents", "type": "boolean", "description": "Only events with paid tickets." }
+      ],
+      "limitParam": "maxOrganizers"
+    },
+    {
+      "tool": "get_google_hotel_prices",
+      "actor": "zrk1212/google-hotels-prices-scraper",
+      "title": "Google Hotels Prices Scraper",
+      "description": "Get Google Hotels prices from every seller (Booking.com, Expedia, Hotels.com, Agoda, the official site and more) for exact dates, by city search or specific hotels. Good for rate shopping and rate-parity checks. Priced per hotel-date.",
+      "params": [
+        { "name": "queries", "type": "string[]", "description": "Google Hotels searches, e.g. ['hotels in Austin'].", "example": ["hotels in Austin"] },
+        { "name": "checkInDate", "type": "string", "description": "Check-in date YYYY-MM-DD (default: daysAhead from today)." },
+        { "name": "checkOutDate", "type": "string", "description": "Check-out date YYYY-MM-DD." },
+        { "name": "adults", "type": "integer", "description": "Number of adults (default 2)." },
+        { "name": "currency", "type": "string", "description": "Currency code (default USD)." },
+        { "name": "maxHotels", "type": "integer", "description": "Hotels per search query (default 3)." }
+      ]
+    },
+    {
+      "tool": "scrape_google_ads_transparency",
+      "actor": "zrk1212/google-ads-transparency-ad-copy",
+      "title": "Google Ads Transparency Scraper",
+      "description": "Scrape a brand's ads from the Google Ads Transparency Center by domain or advertiser name: first/last shown dates, format, Search ad copy as text (headline, description, sitelinks) and YouTube links. 'domainCheck' mode tells you which domains run Google ads. Priced per ad.",
+      "params": [
+        { "name": "mode", "type": "enum", "values": ["ads", "domainCheck"], "description": "Get ads (default) or just check whether domains advertise." },
+        { "name": "domains", "type": "string[]", "description": "Advertiser domains, e.g. ['nike.com'].", "example": ["nike.com"] },
+        { "name": "advertiserNames", "type": "string[]", "description": "Advertiser names to look up." },
+        { "name": "region", "type": "string", "description": "Country code (default US) or 'anywhere'." },
+        { "name": "maxAdsPerTarget", "type": "integer", "description": "Ads per domain or advertiser (default 20)." }
+      ]
+    },
+    {
+      "tool": "scrape_telegram_channel",
+      "actor": "zrk1212/telegram-channel-scraper-stats",
+      "title": "Telegram Channel Scraper",
+      "description": "Scrape posts from public Telegram channels: text, views, reactions, media and comment counts, plus a stats row with exact subscriber count. No login needed. Priced per post.",
+      "params": [
+        { "name": "channels", "type": "string[]", "required": true, "description": "Channel usernames or t.me links, e.g. ['durov'].", "example": ["durov"] },
+        { "name": "maxPostsPerChannel", "type": "integer", "description": "Recent posts per channel (default 50)." },
+        { "name": "searchQuery", "type": "string", "description": "Only posts matching this search." },
+        { "name": "dateFrom", "type": "string", "description": "Only posts on or after YYYY-MM-DD." },
+        { "name": "includeChannelStats", "type": "boolean", "description": "Add a channel stats row (default true)." }
+      ]
+    }
+  ]
+}

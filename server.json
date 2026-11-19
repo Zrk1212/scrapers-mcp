@@ -1,0 +1,19 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.Zrk1212/scrapers-mcp",
+  "title": "ZRK Scrapers",
+  "description": "9 web scrapers: ATS/Workday jobs, PageSpeed, UK companies, TikTok, Luma, Hotels, Ads, Telegram",
+  "repository": { "url": "https://github.com/Zrk1212/scrapers-mcp", "source": "github" },
+  "version": "1.0.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "zrk-scrapers-mcp",
+      "version": "1.0.0",
+      "transport": { "type": "stdio" },
+      "environmentVariables": [
+        { "name": "APIFY_TOKEN", "description": "Your Apify API token (console.apify.com/settings/integrations)", "isRequired": true, "format": "string", "isSecret": true }
+      ]
+    }
+  ]
+}
