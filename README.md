@@ -1,5 +1,7 @@
 # zrk-scrapers-mcp
 
+[![M8ven Score](https://m8ven.ai/badge/mcp/zrk1212-scrapers-mcp-e7phu6?v=7d507cb27924237c0a1eb5306d433f27)](https://m8ven.ai/mcp/zrk1212-scrapers-mcp-e7phu6?s=readme)
+
 An MCP server that gives AI agents (Claude, Cursor, VS Code, Windsurf and others) 9 production web scrapers. Each tool runs a maintained [Apify](https://apify.com/zrk1212) actor and returns clean JSON.
 
 | Tool | What it gets | Actor |
