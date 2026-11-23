@@ -4,3 +4,4 @@ Dockerfile
 server.json
 *.mcpb
 .git/
+test/

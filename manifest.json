@@ -2,7 +2,7 @@
   "manifest_version": "0.3",
   "name": "zrk-scrapers-mcp",
   "display_name": "ZRK Scrapers",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "9 web scrapers for AI agents: ATS and Workday jobs, PageSpeed audits, UK new companies, TikTok transcripts, Luma organizers, Google Hotels prices, Google Ads Transparency, Telegram channels.",
   "author": {
     "name": "Zrk1212",

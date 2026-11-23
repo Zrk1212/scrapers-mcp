@@ -1,24 +1,54 @@
 {
   "name": "zrk-scrapers-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MCP server for 9 web scrapers: ATS + Workday jobs, PageSpeed audits, UK new companies, TikTok transcripts, Luma organizers, Google Hotels prices, Google Ads Transparency, Telegram channels. Runs on Apify.",
   "mcpName": "io.github.Zrk1212/scrapers-mcp",
   "type": "module",
-  "bin": { "zrk-scrapers-mcp": "dist/index.js" },
-  "files": ["dist", "README.md", "LICENSE"],
+  "bin": {
+    "zrk-scrapers-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc && chmod +x dist/index.js",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "test": "npm run build && node --test \"test/*.test.mjs\""
   },
-  "keywords": ["mcp", "mcp-server", "model-context-protocol", "apify", "scraper", "web-scraping", "jobs", "tiktok", "telegram", "pagespeed", "google-hotels", "google-ads", "companies-house", "luma"],
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "apify",
+    "scraper",
+    "web-scraping",
+    "jobs",
+    "tiktok",
+    "telegram",
+    "pagespeed",
+    "google-hotels",
+    "google-ads",
+    "companies-house",
+    "luma"
+  ],
   "author": "Zrk1212",
   "license": "MIT",
-  "repository": { "type": "git", "url": "git+https://github.com/Zrk1212/scrapers-mcp.git" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zrk1212/scrapers-mcp.git"
+  },
   "homepage": "https://github.com/Zrk1212/scrapers-mcp#readme",
-  "engines": { "node": ">=18" },
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.2",
-    "zod": "^3.25.0"
+    "zod": "^4.6.7"
   },
-  "devDependencies": { "typescript": "^5.6.0", "@types/node": "^22.0.0" }
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0"
+  }
 }
